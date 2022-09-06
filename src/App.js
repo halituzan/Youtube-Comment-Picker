@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import YoutubeUrl from "./components/YoutubeUrl";
@@ -19,7 +19,6 @@ function App() {
   const [pick, setPick] = useState();
 
   const [video, setVideo] = useState({
-    key: "AIzaSyCcsuxBuEjmsC0fdQ2KqxkXfi6z0dfLGiU",
     url: "https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=100&video_id=",
     status: false,
     resultPage: 0,
@@ -61,7 +60,11 @@ function App() {
         toast.error("Yorumlar başarılı bir şekilde getirildi.", {
           theme: "colored",
         });
-        const data = await fetching(video.url, videoId, video.key);
+        const data = await fetching(
+          video.url,
+          videoId,
+          process.env.REACT_APP_SECRET_KEY
+        );
         setVideo({ ...video, resultPage: data.pageInfo.totalResult });
         data.items.forEach((element) => {
           const { snippet } = element.snippet.topLevelComment;
@@ -82,7 +85,7 @@ function App() {
 
         while (nextPageToken) {
           const { data } = await axios(
-            `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=100&pageToken=${nextPageToken}&video_id=${videoId}&key=${video.key}`
+            `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=100&pageToken=${nextPageToken}&video_id=${videoId}&key=${process.env.REACT_APP_SECRET_KEY}`
           );
           setVideo({ ...video, resultPage: data.pageInfo.totalResults });
 
