@@ -113,7 +113,6 @@ function App() {
       }
     })();
   };
-  // console.log(comments);
   return (
     <div className="App container mt-5 d-flex flex-column justify-content-center align-items-center">
       <div className="logo">
