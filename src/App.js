@@ -23,14 +23,13 @@ function App() {
     status: false,
     resultPage: 0,
   });
-
   const checkLink = (link) => {
     const regex =
       /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
     const result = link.match(regex);
 
     if (result) {
-      toast.success("Başarılı!", { theme: "colored" });
+      toast.success("Correct!", { theme: "colored" });
       setVideoId(result[1]);
       setVideo({ ...video, status: true });
       setComments([]);
@@ -38,7 +37,7 @@ function App() {
       return true;
     } else {
       toast.error(
-        "Böyle bir link yok veya url yi doğru bir şekide girmediniz",
+        "There is no such link or you did not enter the url correctly.",
         { theme: "dark" }
       );
       setVideo({ ...video, status: false });
@@ -53,7 +52,7 @@ function App() {
   const pickWin = () => {
     (async () => {
       if (video.status) {
-        toast.error("Yorumlar başarılı bir şekilde getirildi.", {
+        toast.success("Comments have been brought in successfully.", {
           theme: "colored",
         });
         const data = await fetching(

@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Button,
-  Form,
-  InputGroup,
-  FloatingLabel,
-} from "react-bootstrap";
+import { Button, Form, InputGroup, FloatingLabel } from "react-bootstrap";
 const YoutubeUrl = ({
   link,
   setLink,
@@ -46,7 +41,6 @@ const YoutubeUrl = ({
               }}
             />
             <Form.Check
-              disabled
               type="switch"
               id="custom-switch"
               label="Filter Words [ If you are going to use more than one word, please use commas(,) ]"
@@ -61,6 +55,7 @@ const YoutubeUrl = ({
                   setWordFilter({
                     ...wordFilter,
                     status: false,
+                    words: "",
                   });
               }}
             />

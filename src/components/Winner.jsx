@@ -14,51 +14,103 @@ const Winner = ({
 }) => {
   let sameFilterComments = [...comments];
 
-  const filterSameUser = sameFilterComments.reduce((unique, o) => {
+  const filterSameUser = sameFilterComments?.reduce((unique, o) => {
     if (!unique.some((obj) => obj.authorChannelUrl === o.authorChannelUrl)) {
       unique.push(o);
     }
     return unique;
   }, []);
+  const filterSameUserAndWords = filterSameUser.filter(
+    (i) =>
+      i.textOriginal.toLowerCase().includes(wordFilter.words.toLowerCase()) ||
+      i.textOriginal.toUpperCase().includes(wordFilter.words.toUpperCase())
+  );
+  const filterOnlyWords = comments.filter(
+    (i) =>
+      i.textOriginal.toLowerCase().includes(wordFilter.words.toLowerCase()) ||
+      i.textOriginal.toUpperCase().includes(wordFilter.words.toUpperCase())
+  );
   const pickWinner = (arr) => {
     const randomNumber = () => Math.floor(Math.random() * arr.length);
     const random = randomNumber();
     setPick(arr[random]);
   };
-  return (
-    <Card className={!video.status ? "d-none mt-5" : "d-block mt-5"}>
-      <Card.Title>
-        <div className="px-5 py-1 text-center">
-          {!sameFilter && !wordFilter.status ? (
-            <p>
-              {comments.length < 1
-                ? ""
-                : ` There are ${comments.length} comments in total`}
-            </p>
-          ) : (
-            <p>
-              {filterSameUser.length < 1
-                ? ""
-                : ` There are different ${filterSameUser.length} comments in total`}
-            </p>
-          )}
-        </div>
-      </Card.Title>
-      {!comments.length < 1 ? (
-        <Card.Body className="d-flex flex-column justify-content-center align-items-center">
+
+  const beforeResult = () => {
+    if (!sameFilter && !wordFilter.status) {
+      return (
+        <p className="d-flex flex-column justify-content-center align-items-center">
+          {comments.length < 1
+            ? ""
+            : ` There are ${comments.length} comments in total`}
           <Button
             variant="success"
             disabled={comments.length < 1 ? true : false}
-            onClick={() => {
-              if (sameFilter === false) {
-                return pickWinner(comments);
-              } else {
-                return pickWinner(filterSameUser);
-              }
-            }}
+            onClick={() => pickWinner(comments)}
+            className="mt-5"
           >
             <AiOutlineSelect className="fs-1" /> Pick Winner
           </Button>
+        </p>
+      );
+    } else if (sameFilter && !wordFilter.status) {
+      return (
+        <p className="d-flex flex-column justify-content-center align-items-center">
+          {filterSameUser.length < 1
+            ? ""
+            : ` There are ${filterSameUser.length} comments in total`}
+          <Button
+            variant="success"
+            disabled={comments.length < 1 ? true : false}
+            onClick={() => pickWinner(filterSameUser)}
+            className="mt-5"
+          >
+            <AiOutlineSelect className="fs-1" /> Pick Winner
+          </Button>
+        </p>
+      );
+    } else if (!sameFilter && wordFilter.status) {
+      return (
+        <p className="d-flex flex-column justify-content-center align-items-center">
+          {filterOnlyWords.length < 1
+            ? ""
+            : ` There are ${filterOnlyWords.length} comments in total`}
+          <Button
+            variant="success"
+            disabled={comments.length < 1 ? true : false}
+            onClick={() => pickWinner(filterOnlyWords)}
+            className="mt-5"
+          >
+            <AiOutlineSelect className="fs-1" /> Pick Winner
+          </Button>
+        </p>
+      );
+    } else if (sameFilter && wordFilter.status) {
+      return (
+        <p className="d-flex flex-column justify-content-center align-items-center">
+          {filterSameUserAndWords.length < 1
+            ? ""
+            : ` There are ${filterSameUserAndWords.length} comments in total`}
+          <Button
+            variant="success"
+            disabled={comments.length < 1 ? true : false}
+            onClick={() => pickWinner(filterOnlyWords)}
+            className="mt-5"
+          >
+            <AiOutlineSelect className="fs-1" /> Pick Winner
+          </Button>
+        </p>
+      );
+    }
+  };
+
+  return (
+    <Card className={!video.status ? "d-none mt-5" : "d-block mt-5"}>
+      <Card.Title>
+        <div className="px-5 py-1 text-center">{beforeResult()}</div>
+      </Card.Title>
+      {!comments.length < 1 ? (
+        <Card.Body className="d-flex flex-column justify-content-center align-items-center">
           {pick ? (
             <div className="winner mt-5 d-flex flex-column justify-content-center align-items-center w-100">
               <img
@@ -71,11 +123,6 @@ const Winner = ({
                 style={{ width: "5rem" }}
                 className="position-relative"
               />
-
-              <p className="w-50 bg-warning text-dark p-2 d-flex flex-column justify-content-center align-items-center mt-2">
-                <span className="fw-bold text-decoration-underline">Yorum</span>{" "}
-                {pick?.textOriginal}
-              </p>
               <div className="d-flex justify-content-center align-items-center ">
                 <a
                   href={pick?.authorChannelUrl}
@@ -88,7 +135,12 @@ const Winner = ({
                   <AiOutlineLink className="fs-2" />
                 </a>
               </div>
-              <div className="comment"></div>
+              <p className="w-50 bg-warning text-dark p-2 d-flex flex-column justify-content-center align-items-center mt-2">
+                <span className="fw-bold text-decoration-underline">
+                  Comment
+                </span>{" "}
+                {pick?.textOriginal}
+              </p>
             </div>
           ) : (
             ""
