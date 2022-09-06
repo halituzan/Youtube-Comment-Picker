@@ -24,10 +24,6 @@ function App() {
     resultPage: 0,
   });
 
-  const randomNumber = (min, max) => {
-    return Math.floor(Math.random() * (max - 1 - min + 1)) + min;
-  };
-  //console.log(video)
   const checkLink = (link) => {
     const regex =
       /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
