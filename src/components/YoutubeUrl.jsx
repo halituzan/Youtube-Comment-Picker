@@ -1,5 +1,11 @@
 import React from "react";
-import { Button, Form, InputGroup, FloatingLabel } from "react-bootstrap";
+import {
+  Button,
+  Form,
+  InputGroup,
+  FloatingLabel,
+  Ratio,
+} from "react-bootstrap";
 const YoutubeUrl = ({
   link,
   setLink,
@@ -7,9 +13,10 @@ const YoutubeUrl = ({
   setSameFilter,
   wordFilter,
   setWordFilter,
+  video,
 }) => {
   return (
-    <div>
+    <div className="d-flex flex-column justify-content-center align-items-center">
       <InputGroup className="mb-3">
         <Form.Control
           placeholder="Youtube Url"
@@ -78,6 +85,18 @@ const YoutubeUrl = ({
             />
           </FloatingLabel>
         </Form>
+      </div>
+      <div style={{ width: "400px" }}>
+        {video.videoId ? (
+          <Ratio aspectRatio="16x9">
+            <iframe
+              title="Video"
+              src={`https://www.youtube.com/embed/${video.videoId}`}
+            />
+          </Ratio>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

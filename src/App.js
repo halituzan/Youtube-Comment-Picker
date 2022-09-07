@@ -22,6 +22,7 @@ function App() {
     url: "https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=100&video_id=",
     status: false,
     resultPage: 0,
+    videoId: "",
   });
   const checkLink = (link) => {
     const regex =
@@ -31,7 +32,7 @@ function App() {
     if (result) {
       toast.success("Correct!", { theme: "colored" });
       setVideoId(result[1]);
-      setVideo({ ...video, status: true });
+      setVideo({ ...video, status: true, videoId: result[1] });
       setComments([]);
       setPick(null);
       return true;
@@ -124,6 +125,7 @@ function App() {
         setSameFilter={setSameFilter}
         setWordFilter={setWordFilter}
         wordFilter={wordFilter}
+        video={video}
       />
 
       <Winner
