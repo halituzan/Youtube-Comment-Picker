@@ -7,49 +7,29 @@ import "./App.css";
 import Winner from "./components/Winner";
 
 function App() {
+  const arr = [];
   let nextPageToken;
-  const [link, setLink] = useState("");
-  const [sameFilter, setSameFilter] = useState(false);
-  const [wordFilter, setWordFilter] = useState({
-    status: false,
-    words: "",
-  });
-  const [videoId, setVideoId] = useState("");
   const [comments, setComments] = useState([]);
-  const [pick, setPick] = useState();
-
   const [video, setVideo] = useState({
     url: "https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=100&video_id=",
+    link: "",
     status: false,
     resultPage: 0,
     videoId: "",
+    reVideoId: "",
+    pick: "",
+    sameFilter: false,
+    wordFilter: {
+      status: false,
+      words: "",
+    },
+    seconds: 1,
   });
-  const checkLink = (link) => {
-    const regex =
-      /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
-    const result = link.match(regex);
-
-    if (result) {
-      toast.success("Correct!", { theme: "colored" });
-      setVideoId(result[1]);
-      setVideo({ ...video, status: true, videoId: result[1] });
-      setComments([]);
-      setPick(null);
-      return true;
-    } else {
-      toast.error(
-        "There is no such link or you did not enter the url correctly.",
-        { theme: "dark" }
-      );
-      setVideo({ ...video, status: false });
-      setComments([]);
-      return false;
-    }
-  };
   const fetching = async (uri, id, key) => {
     const { data } = await axios(uri + id + `&key=${key}`);
     return data;
   };
+
   const pickWin = () => {
     (async () => {
       if (video.status) {
@@ -58,12 +38,13 @@ function App() {
         });
         const data = await fetching(
           video.url,
-          videoId,
+          video.videoId,
           process.env.REACT_APP_SECRET_KEY
         );
-        setVideo({ ...video, resultPage: data.pageInfo.totalResult });
+
         data.items.forEach((element) => {
           const { snippet } = element.snippet.topLevelComment;
+
           setComments((arr) => [
             ...arr,
             {
@@ -75,16 +56,21 @@ function App() {
               updatedAt: snippet.updatedAt,
             },
           ]);
-        });
 
+          //   authorDisplayName: snippet.authorDisplayName,
+          //   authorChannelUrl: snippet.authorChannelUrl,
+          //   authorProfileImageUrl: snippet.authorProfileImageUrl,
+          //   textDisplay: snippet.textDisplay,
+          //   textOriginal: snippet.textOriginal,
+          //   updatedAt: snippet.updatedAt,
+          // });
+        });
         nextPageToken = data.nextPageToken;
 
         while (nextPageToken) {
           const { data } = await axios(
-            `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=100&pageToken=${nextPageToken}&video_id=${videoId}&key=${process.env.REACT_APP_SECRET_KEY}`
+            `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=100&pageToken=${nextPageToken}&video_id=${video.videoId}&key=${process.env.REACT_APP_SECRET_KEY}`
           );
-          setVideo({ ...video, resultPage: data.pageInfo.totalResults });
-
           data.items.forEach((element) => {
             const { snippet } = element.snippet.topLevelComment;
             setComments((arr) => [
@@ -102,9 +88,13 @@ function App() {
           nextPageToken = data.nextPageToken;
 
           if (!nextPageToken) {
-            setVideoId("");
+            setVideo({ ...video, videoId: "" });
             break;
           }
+          setVideo({
+            ...video,
+            comments: arr,
+          });
         }
       } else {
         toast.error("Hata, Lütfen videoyu seçme butonuna tıklayın", {
@@ -114,29 +104,43 @@ function App() {
     })();
   };
   return (
-    <div className="App container mt-5 d-flex flex-column justify-content-center align-items-center">
-      <div className="logo">
-        <img src="../assets/yt-comment-picker-logo.png" alt="logo" />
+    <div className="App container mt-5 d-flex flex-column justify-content-center align-items-center w-100">
+      <div className="logo d-flex justify-content-center align-items-center w-100 row">
+        <img src="../assets/logo.png" alt="logo" className="col-12 col-md-6" />
+        <div className="d-flex col-12 col-md-6">
+          <h2 className="me-4">
+            <span>Y</span>
+            <span>O</span>
+            <span>U</span>
+            <span>T</span>
+            <span>U</span>
+            <span>B</span>
+            <span>E</span>
+          </h2>
+          <h2>
+            <span>C</span>
+            <span>O</span>
+            <span>M</span>
+            <span>M</span>
+            <span>E</span>
+            <span>N</span>
+            <span>T</span>
+            <span>P</span>
+            <span>I</span>
+            <span>C</span>
+            <span>K</span>
+            <span>E</span>
+            <span>R</span>
+          </h2>
+        </div>
       </div>
-      <YoutubeUrl
-        link={link}
-        setLink={setLink}
-        checkLink={checkLink}
-        setSameFilter={setSameFilter}
-        setWordFilter={setWordFilter}
-        wordFilter={wordFilter}
-        video={video}
-      />
+      <YoutubeUrl video={video} setVideo={setVideo} setComments={setComments} />
 
       <Winner
-        comments={comments}
         video={video}
-        sameFilter={sameFilter}
-        wordFilter={wordFilter}
-        videoId={videoId}
+        setVideo={setVideo}
         pickWin={pickWin}
-        pick={pick}
-        setPick={setPick}
+        comments={comments}
       />
       <ToastContainer
         position="bottom-right"

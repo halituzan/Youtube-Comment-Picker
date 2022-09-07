@@ -1,19 +1,27 @@
 import React from "react";
-import { Button, Card } from "react-bootstrap";
-import { AiOutlineSelect, AiOutlineLink } from "react-icons/ai";
+import { Button, Card, Form } from "react-bootstrap";
+import {
+  AiOutlineSelect,
+  AiOutlineLink,
+  AiOutlinePlusCircle,
+  AiOutlineMinusCircle,
+} from "react-icons/ai";
 
-const Winner = ({
-  comments,
-  video,
-  sameFilter,
-  wordFilter,
-  videoId,
-  pickWin,
-  pick,
-  setPick,
-}) => {
+const Winner = ({ video, pickWin, setVideo, comments }) => {
+  const plus = () => {
+    if (video.seconds >= 1 && video.seconds < 17) {
+      setVideo({ ...video, seconds: video.seconds + 1 });
+    } else {
+    }
+  };
+  const minus = () => {
+    if (video.seconds > 1) {
+      setVideo({ ...video, seconds: video.seconds - 1 });
+    } else {
+    }
+  };
+
   let sameFilterComments = [...comments];
-
   const filterSameUser = sameFilterComments?.reduce((unique, o) => {
     if (!unique.some((obj) => obj.authorChannelUrl === o.authorChannelUrl)) {
       unique.push(o);
@@ -22,24 +30,42 @@ const Winner = ({
   }, []);
   const filterSameUserAndWords = filterSameUser.filter(
     (i) =>
-      i.textOriginal.toLowerCase().includes(wordFilter.words.toLowerCase()) ||
-      i.textOriginal.toUpperCase().includes(wordFilter.words.toUpperCase())
+      i.textOriginal
+        .toLowerCase()
+        .includes(video.wordFilter.words.toLowerCase()) ||
+      i.textOriginal
+        .toUpperCase()
+        .includes(video.wordFilter.words.toUpperCase())
   );
   const filterOnlyWords = comments.filter(
     (i) =>
-      i.textOriginal.toLowerCase().includes(wordFilter.words.toLowerCase()) ||
-      i.textOriginal.toUpperCase().includes(wordFilter.words.toUpperCase())
+      i.textOriginal
+        .toLowerCase()
+        .includes(video.wordFilter.words.toLowerCase()) ||
+      i.textOriginal
+        .toUpperCase()
+        .includes(video.wordFilter.words.toUpperCase())
   );
   const pickWinner = (arr) => {
-    const randomNumber = () => Math.floor(Math.random() * arr.length);
-    const random = randomNumber();
-    setPick(arr[random]);
+    let count = 0;
+
+    const repeat = setInterval(function () {
+      if (count < video.seconds * 10) {
+        count = count + 1;
+        const randomNumber = () => Math.floor(Math.random() * arr.length);
+        const random = randomNumber();
+        setVideo({ ...video, pick: arr[random] });
+      } else {
+        clearInterval(repeat);
+      }
+    }, 100);
   };
 
   const beforeResult = () => {
-    if (!sameFilter && !wordFilter.status) {
+    if (!video.sameFilter && !video.wordFilter.status) {
+      // Tüm yorumların olduğu bölüm
       return (
-        <p className="d-flex flex-column justify-content-center align-items-center">
+        <div className="d-flex flex-column justify-content-center align-items-center">
           {comments.length < 1
             ? ""
             : ` There are ${comments.length} comments in total`}
@@ -51,55 +77,166 @@ const Winner = ({
           >
             <AiOutlineSelect className="fs-1" /> Pick Winner
           </Button>
-        </p>
+          {comments.length > 0 ? (
+            <div className="d-flex flex-column justify-content-center align-items-center">
+              <div className="d-flex justify-content-center mt-2 align-items-center ">
+                <AiOutlineMinusCircle
+                  onClick={() => minus()}
+                  className="fs-2 cursor-pointer"
+                />
+                <Form.Control
+                  type="number"
+                  placeholder="Seconds"
+                  className="w-50 mx-2 text-center"
+                  value={video.seconds}
+                  readOnly
+                />
+                <AiOutlinePlusCircle
+                  onClick={() => plus()}
+                  className="fs-2 cursor-pointer"
+                />
+              </div>
+              <div className="fs-5 fw-lighter">
+                How many seconds should the selection process take? (Min:1 -
+                Max:17)
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
       );
-    } else if (sameFilter && !wordFilter.status) {
+    } else if (video.sameFilter && !video.wordFilter.status) {
+      // Aynı kullanıcıların elendiği kelime seçilmemiş durum
       return (
-        <p className="d-flex flex-column justify-content-center align-items-center">
+        <div className="d-flex flex-column justify-content-center align-items-center">
           {filterSameUser.length < 1
             ? ""
             : ` There are ${filterSameUser.length} comments in total`}
           <Button
             variant="success"
-            disabled={comments.length < 1 ? true : false}
+            disabled={filterSameUser.length < 1 ? true : false}
             onClick={() => pickWinner(filterSameUser)}
-            className="mt-5"
+            className="mt-5 "
           >
             <AiOutlineSelect className="fs-1" /> Pick Winner
           </Button>
-        </p>
+          {comments.length > 0 ? (
+            <div className="d-flex flex-column justify-content-center align-items-center">
+              <div className="d-flex justify-content-center mt-2 align-items-center ">
+                <AiOutlineMinusCircle
+                  onClick={() => minus()}
+                  className="fs-2 cursor-pointer"
+                />
+                <Form.Control
+                  type="number"
+                  placeholder="Seconds"
+                  className="w-50 mx-2 text-center"
+                  value={video.seconds}
+                  readOnly
+                />
+                <AiOutlinePlusCircle
+                  onClick={() => plus()}
+                  className="fs-2 cursor-pointer"
+                />
+              </div>
+              <div className="fs-5 fw-lighter">
+                How many seconds should the selection process take? (Min:1 -
+                Max:17)
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
       );
-    } else if (!sameFilter && wordFilter.status) {
+    } else if (!video.sameFilter && video.wordFilter.status) {
+      // Bütün kullanıcıların olduğu kelime seçilmiş durum
       return (
-        <p className="d-flex flex-column justify-content-center align-items-center">
+        <div className="d-flex flex-column justify-content-center align-items-center">
           {filterOnlyWords.length < 1
             ? ""
             : ` There are ${filterOnlyWords.length} comments in total`}
           <Button
             variant="success"
-            disabled={comments.length < 1 ? true : false}
+            disabled={filterOnlyWords.length < 1 ? true : false}
             onClick={() => pickWinner(filterOnlyWords)}
             className="mt-5"
           >
             <AiOutlineSelect className="fs-1" /> Pick Winner
           </Button>
-        </p>
+          {comments.length > 0 ? (
+            <div className="d-flex flex-column justify-content-center align-items-center">
+              <div className="d-flex justify-content-center mt-2 align-items-center ">
+                <AiOutlineMinusCircle
+                  onClick={() => minus()}
+                  className="fs-2 cursor-pointer"
+                />
+                <Form.Control
+                  type="number"
+                  placeholder="Seconds"
+                  className="w-50 mx-2 text-center"
+                  value={video.seconds}
+                  readOnly
+                />
+                <AiOutlinePlusCircle
+                  onClick={() => plus()}
+                  className="fs-2 cursor-pointer"
+                />
+              </div>
+              <div className="fs-5 fw-lighter">
+                How many seconds should the selection process take? (Min:1 -
+                Max:17)
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
       );
-    } else if (sameFilter && wordFilter.status) {
+    } else if (video.sameFilter && video.wordFilter.status) {
+      // Aynı kullanıcıların elendiği kelime seçilmiş durum
       return (
-        <p className="d-flex flex-column justify-content-center align-items-center">
+        <div className="d-flex flex-column justify-content-center align-items-center">
           {filterSameUserAndWords.length < 1
             ? ""
             : ` There are ${filterSameUserAndWords.length} comments in total`}
           <Button
             variant="success"
-            disabled={comments.length < 1 ? true : false}
-            onClick={() => pickWinner(filterOnlyWords)}
+            disabled={filterSameUserAndWords.length < 1 ? true : false}
+            onClick={() => pickWinner(filterSameUserAndWords)}
             className="mt-5"
           >
             <AiOutlineSelect className="fs-1" /> Pick Winner
           </Button>
-        </p>
+          {comments.length > 0 ? (
+            <div className="d-flex flex-column justify-content-center align-items-center">
+              <div className="d-flex justify-content-center mt-2 align-items-center ">
+                <AiOutlineMinusCircle
+                  onClick={() => minus()}
+                  className="fs-2 cursor-pointer"
+                />
+                <Form.Control
+                  type="number"
+                  placeholder="Seconds"
+                  className="w-50 mx-2 text-center"
+                  value={video.seconds}
+                  readOnly
+                />
+                <AiOutlinePlusCircle
+                  onClick={() => plus()}
+                  className="fs-2 cursor-pointer"
+                />
+              </div>
+              <div className="fs-5 fw-lighter">
+                How many seconds should the selection process take? (Min:1 -
+                Max:17)
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
       );
     }
   };
@@ -111,36 +248,36 @@ const Winner = ({
       </Card.Title>
       {!comments.length < 1 ? (
         <Card.Body className="d-flex flex-column justify-content-center align-items-center">
-          {pick ? (
+          {video.pick ? (
             <div className="winner mt-5 d-flex flex-column justify-content-center align-items-center w-100">
               <img
                 onError={({ currentTarget }) => {
                   currentTarget.onerror = null; // prevents looping
-                  currentTarget.src = `https://via.placeholder.com/80/BA202E/0000FF?text=${pick?.authorDisplayName[0]}`;
+                  currentTarget.src = `https://via.placeholder.com/80/BA202E/0000FF?text=${video.pick?.authorDisplayName[0]}`;
                 }}
-                src={pick?.authorProfileImageUrl}
+                src={video.pick?.authorProfileImageUrl}
                 alt="Profile"
                 style={{ width: "5rem" }}
                 className="position-relative"
               />
               <div className="d-flex justify-content-center align-items-center ">
                 <a
-                  href={pick?.authorChannelUrl}
+                  href={video.pick?.authorChannelUrl}
                   target="_blank"
                   rel="noreferrer"
                   className="d-flex justify-content-center align-items-center "
                 >
-                  <h1>{pick?.authorDisplayName} </h1>
+                  <h1>{video.pick?.authorDisplayName} </h1>
 
                   <AiOutlineLink className="fs-2" />
                 </a>
               </div>
-              <p className="w-50 bg-warning text-dark p-2 d-flex flex-column justify-content-center align-items-center mt-2">
+              <div className="w-50 bg-warning text-dark p-2 d-flex flex-column justify-content-center align-items-center mt-2">
                 <span className="fw-bold text-decoration-underline">
                   Comment
                 </span>{" "}
-                {pick?.textOriginal}
-              </p>
+                {video.pick?.textOriginal}
+              </div>
             </div>
           ) : (
             ""
@@ -154,8 +291,8 @@ const Winner = ({
               variant="success"
               onClick={() => pickWin()}
               className="col-3 mt-3 w-100"
-              style={!videoId ? { pointerEvents: "none" } : {}}
-              disabled={!videoId ? true : false}
+              style={!video.reVideoId ? { pointerEvents: "none" } : {}}
+              disabled={!video.videoId ? true : false}
             >
               Fetch Comments
             </Button>

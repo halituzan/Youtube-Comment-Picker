@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap");
 .images {
   filter: blur(5px);
 }
@@ -6,5 +7,102 @@
   width: 50%;
 }
 .logo img {
-  width: 100%;
+  width: 125px;
+}
+.logo h2 {
+  text-align: center;
+  font-weight: bold;
+  font-family: "Yanone Kaffeesatz", sans-serif;
+}
+.h2span {
+  color: #d42428;
+}
+
+.logo h2 {
+  color: white;
+  font-size: 0;
+  line-height: 1.5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo h2 span {
+  font-size: 4rem;
+  display: inline-block;
+  animation: move 3s ease-in-out infinite;
+}
+
+@keyframes move {
+  0% {
+    transform: translate(-5%, 0);
+  }
+  50% {
+    text-shadow: 0 25px 50px #d42427;
+  }
+  100% {
+    transform: translate(5%, 0);
+  }
+}
+
+.logo h2 span:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.logo h2 span:nth-child(3) {
+  animation-delay: 1s;
+}
+
+.logo h2 span:nth-child(4) {
+  animation-delay: 1.5s;
+}
+
+.logo h2 span:nth-child(5) {
+  animation-delay: 2s;
+}
+
+.logo h2 span:nth-child(6) {
+  animation-delay: 2.5s;
+}
+
+.logo h2 span:nth-child(7) {
+  animation-delay: 3s;
+}
+.logo h2 span:nth-child(8) {
+  animation-delay: 3.5s;
+}
+.logo h2 span:nth-child(9) {
+  animation-delay: 4s;
+}
+.logo h2 span:nth-child(10) {
+  animation-delay: 4.5s;
+}
+.logo h2 span:nth-child(11) {
+  animation-delay: 5s;
+}
+.logo h2 span:nth-child(12) {
+  animation-delay: 5.5s;
+}
+.logo h2 span:nth-child(13) {
+  animation-delay: 6s;
+}
+.logo h2 span:nth-child(14) {
+  animation-delay: 6.5s;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+.w-15 {
+  width: 15% !important;
+}
+.cursor-pointer {
+  cursor: pointer;
 }
