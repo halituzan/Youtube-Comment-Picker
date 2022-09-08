@@ -14,6 +14,7 @@ const Winner = ({ video, pickWin, setVideo, comments }) => {
     } else {
     }
   };
+
   const minus = () => {
     if (video.seconds > 1) {
       setVideo({ ...video, seconds: video.seconds - 1 });
@@ -23,12 +24,15 @@ const Winner = ({ video, pickWin, setVideo, comments }) => {
 
   let sameFilterComments = [...comments];
   const filterSameUser = sameFilterComments?.reduce((unique, o) => {
+    // Sadece aynı kullanıcıları filtreliyor
     if (!unique.some((obj) => obj.authorChannelUrl === o.authorChannelUrl)) {
       unique.push(o);
     }
     return unique;
   }, []);
+
   const filterSameUserAndWords = filterSameUser.filter(
+    // kelimeye ve kullanıcıya göre filtreliyor
     (i) =>
       i.textOriginal
         .toLowerCase()
@@ -38,6 +42,7 @@ const Winner = ({ video, pickWin, setVideo, comments }) => {
         .includes(video.wordFilter.words.toUpperCase())
   );
   const filterOnlyWords = comments.filter(
+    // tüm yorumlarda kelimeye göre filtreliyor
     (i) =>
       i.textOriginal
         .toLowerCase()
@@ -46,6 +51,7 @@ const Winner = ({ video, pickWin, setVideo, comments }) => {
         .toUpperCase()
         .includes(video.wordFilter.words.toUpperCase())
   );
+
   const pickWinner = (arr) => {
     let count = 0;
 
@@ -242,7 +248,7 @@ const Winner = ({ video, pickWin, setVideo, comments }) => {
   };
 
   return (
-    <Card className={!video.status ? "d-none mt-5" : "d-block mt-5"}>
+    <Card className={!video.status ? "d-none" : "d-block mb-5 pb-5 bg-dark text-light rounded-0 w-75 rounded-bottom"}>
       <Card.Title>
         <div className="px-5 py-1 text-center">{beforeResult()}</div>
       </Card.Title>
@@ -272,7 +278,7 @@ const Winner = ({ video, pickWin, setVideo, comments }) => {
                   <AiOutlineLink className="fs-2" />
                 </a>
               </div>
-              <div className="w-50 bg-warning text-dark p-2 d-flex flex-column justify-content-center align-items-center mt-2">
+              <div className="w-50 comments text-dark p-2 d-flex flex-column justify-content-center align-items-center mt-2">
                 <span className="fw-bold text-decoration-underline">
                   Comment
                 </span>{" "}

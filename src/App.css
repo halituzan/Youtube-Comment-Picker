@@ -19,7 +19,7 @@
 }
 
 .logo h2 {
-  color: white;
+  color: blanchedalmond;
   font-size: 0;
   line-height: 1.5;
   display: flex;
@@ -105,4 +105,59 @@ input[type="number"] {
 }
 .cursor-pointer {
   cursor: pointer;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+}
+.patreon {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.linkedin {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.github {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.medium {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.github:hover,
+.medium:hover {
+  color: white !important;
+  filter: drop-shadow(0px 0px 3px rgb(179, 173, 158));
+}
+.linkedin:hover {
+  color: rgb(0, 114, 177) !important;
+  filter: drop-shadow(0px 0px 3px white);
+}
+.patreon:hover {
+  color: rgb(255, 66, 77) !important;
+  filter: drop-shadow(0px 0px 3px white);
+}
+body {
+  background-color: blanchedalmond !important;
+}
+.comments {
+  background-color: blanchedalmond !important;
+  filter: drop-shadow(0px 0px 3px rgb(179, 173, 158));
+}
+.url-input,
+.url-button {
+  filter: drop-shadow(0px 0px 3px rgb(179, 173, 158));
+}
+.url-button {
+  transition: transform 0.4s ease-out;
+}
+.url-button:hover {
+  transform: scale(1.2);
+}
+
+.form-check-input:checked {
+  background-color: #fd7e14 !important;
+  border-color: #fd7e14 !important;
 }
