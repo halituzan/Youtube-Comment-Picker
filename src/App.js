@@ -26,25 +26,30 @@ function App() {
     seconds: 1,
   });
   const fetching = async (uri, id, key) => {
-    const { data } = await axios(uri + id + `&key=${key}`);
+    const data = await axios(uri + id + `&key=${key}`).catch((err) => err);
     return data;
   };
 
   const pickWin = () => {
     (async () => {
       if (video.status) {
-        toast.success("Comments have been brought in successfully.", {
-          theme: "colored",
-        });
-        const data = await fetching(
+        const res = await fetching(
           video.url,
           video.videoId,
           process.env.REACT_APP_SECRET_KEY
-        );
-
-        data.items.forEach((element) => {
+        ).catch((err) => console.log(err));
+        const { data } = res;
+        if (res.status === 200) {
+          toast.success("Comments have been brought in successfully.", {
+            theme: "colored",
+          });
+        } else {
+          toast.error("An error occurred while shooting the video", {
+            theme: "dark",
+          });
+        }
+        data?.items?.forEach((element) => {
           const { snippet } = element.snippet.topLevelComment;
-
           setComments((arr) => [
             ...arr,
             {
@@ -71,7 +76,7 @@ function App() {
           const { data } = await axios(
             `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=100&pageToken=${nextPageToken}&video_id=${video.videoId}&key=${process.env.REACT_APP_SECRET_KEY}`
           );
-          data.items.forEach((element) => {
+          data.items?.forEach((element) => {
             const { snippet } = element.snippet.topLevelComment;
             setComments((arr) => [
               ...arr,
@@ -104,10 +109,10 @@ function App() {
     })();
   };
   return (
-    <div className="App container mt-5 d-flex flex-column justify-content-center align-items-center w-100">
-      <div className="logo d-flex justify-content-center align-items-center w-100 row">
-        <img src="../assets/logo.png" alt="logo" className="col-12 col-md-6" />
-        <div className="d-flex col-12 col-md-6">
+    <div className="App container mt-5 d-flex flex-column justify-content-center align-items-center w-100 mb-5">
+      <div className="logo d-flex justify-content-center align-items-center w-100 row mb-5">
+        <img src="../assets/logo.png" alt="logo" className="col-12 col-lg-6" />
+        <div className="d-flex justify-content-center col-12 col-lg-6">
           <h2 className="me-4">
             <span>Y</span>
             <span>O</span>
