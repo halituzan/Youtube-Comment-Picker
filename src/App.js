@@ -133,7 +133,7 @@ function App() {
   return (
     <div className="App container mt-5 d-flex flex-column justify-content-center align-items-center w-100 mb-5">
       <div className="logo d-flex justify-content-center align-items-center w-100 row mb-5">
-        <img src="../assets/logo.png" alt="logo" className="col-12 col-lg-6" />
+        
         <div className="d-flex justify-content-center col-12 col-lg-6">
           <h2 className="me-4">
             <span>Y</span>
