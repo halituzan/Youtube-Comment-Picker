@@ -1,9 +1,8 @@
 import { toast } from "react-toastify";
 
 export const checkLink = (video, setVideo, setComments) => {
-
   const regex =
-    /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+    /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|shorts\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
   const result = video.link.match(regex);
 
   if (result) {

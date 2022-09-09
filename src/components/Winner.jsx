@@ -6,7 +6,7 @@ import {
   AiOutlinePlusCircle,
   AiOutlineMinusCircle,
 } from "react-icons/ai";
-
+import { en, tr } from "../lang/language";
 const Winner = ({ video, pickWin, setVideo, comments }) => {
   const plus = () => {
     if (video.seconds >= 1 && video.seconds < 17) {
@@ -74,14 +74,19 @@ const Winner = ({ video, pickWin, setVideo, comments }) => {
         <div className="d-flex flex-column justify-content-center align-items-center">
           {comments.length < 1
             ? ""
-            : ` There are ${comments.length} comments in total`}
+            : localStorage.getItem("Lang") === "English"
+            ? ` There are ${comments.length} comments in total`
+            : `Toplamda ${comments.length} yorum var`}
           <Button
             variant="success"
             disabled={comments.length < 1 ? true : false}
             onClick={() => pickWinner(comments)}
             className="mt-5"
           >
-            <AiOutlineSelect className="fs-1" /> Pick Winner
+            <AiOutlineSelect className="fs-1" />
+            {localStorage.getItem("Lang") === "English"
+              ? en.pickWinner
+              : tr.pickWinner}
           </Button>
           {comments.length > 0 ? (
             <div className="d-flex flex-column justify-content-center align-items-center">
@@ -102,9 +107,10 @@ const Winner = ({ video, pickWin, setVideo, comments }) => {
                   className="fs-2 cursor-pointer"
                 />
               </div>
-              <div className="fs-5 fw-lighter">
-                How many seconds should the selection process take? (Min:1 -
-                Max:17)
+              <div className="fs-5 fw-lighter pt-3">
+                {localStorage.getItem("Lang") === "English"
+                  ? en.howManyTime
+                  : tr.howManyTime}
               </div>
             </div>
           ) : (
@@ -118,14 +124,19 @@ const Winner = ({ video, pickWin, setVideo, comments }) => {
         <div className="d-flex flex-column justify-content-center align-items-center">
           {filterSameUser.length < 1
             ? ""
-            : ` There are ${filterSameUser.length} comments in total`}
+            : localStorage.getItem("Lang") === "English"
+            ? ` There are ${filterSameUser.length} comments in total`
+            : `Toplamda ${filterSameUser.length} yorum var`}
           <Button
             variant="success"
             disabled={filterSameUser.length < 1 ? true : false}
             onClick={() => pickWinner(filterSameUser)}
             className="mt-5 "
           >
-            <AiOutlineSelect className="fs-1" /> Pick Winner
+            <AiOutlineSelect className="fs-1" />{" "}
+            {localStorage.getItem("Lang") === "English"
+              ? en.pickWinner
+              : tr.pickWinner}
           </Button>
           {comments.length > 0 ? (
             <div className="d-flex flex-column justify-content-center align-items-center">
@@ -146,9 +157,10 @@ const Winner = ({ video, pickWin, setVideo, comments }) => {
                   className="fs-2 cursor-pointer"
                 />
               </div>
-              <div className="fs-5 fw-lighter">
-                How many seconds should the selection process take? (Min:1 -
-                Max:17)
+              <div className="fs-5 fw-lighter pt-3">
+                {localStorage.getItem("Lang") === "English"
+                  ? en.howManyTime
+                  : tr.howManyTime}
               </div>
             </div>
           ) : (
@@ -162,14 +174,19 @@ const Winner = ({ video, pickWin, setVideo, comments }) => {
         <div className="d-flex flex-column justify-content-center align-items-center">
           {filterOnlyWords.length < 1
             ? ""
-            : ` There are ${filterOnlyWords.length} comments in total`}
+            : localStorage.getItem("Lang") === "English"
+            ? ` There are ${filterOnlyWords.length} comments in total`
+            : `Toplamda ${filterOnlyWords.length} yorum var`}
           <Button
             variant="success"
             disabled={filterOnlyWords.length < 1 ? true : false}
             onClick={() => pickWinner(filterOnlyWords)}
             className="mt-5"
           >
-            <AiOutlineSelect className="fs-1" /> Pick Winner
+            <AiOutlineSelect className="fs-1" />{" "}
+            {localStorage.getItem("Lang") === "English"
+              ? en.pickWinner
+              : tr.pickWinner}
           </Button>
           {comments.length > 0 ? (
             <div className="d-flex flex-column justify-content-center align-items-center">
@@ -190,9 +207,10 @@ const Winner = ({ video, pickWin, setVideo, comments }) => {
                   className="fs-2 cursor-pointer"
                 />
               </div>
-              <div className="fs-5 fw-lighter">
-                How many seconds should the selection process take? (Min:1 -
-                Max:17)
+              <div className="fs-5 fw-lighter pt-3">
+                {localStorage.getItem("Lang") === "English"
+                  ? en.howManyTime
+                  : tr.howManyTime}
               </div>
             </div>
           ) : (
@@ -206,14 +224,19 @@ const Winner = ({ video, pickWin, setVideo, comments }) => {
         <div className="d-flex flex-column justify-content-center align-items-center">
           {filterSameUserAndWords.length < 1
             ? ""
-            : ` There are ${filterSameUserAndWords.length} comments in total`}
+            : localStorage.getItem("Lang") === "English"
+            ? ` There are ${filterSameUserAndWords.length} comments in total`
+            : `Toplamda ${filterSameUserAndWords.length} yorum var`}
           <Button
             variant="success"
             disabled={filterSameUserAndWords.length < 1 ? true : false}
             onClick={() => pickWinner(filterSameUserAndWords)}
             className="mt-5"
           >
-            <AiOutlineSelect className="fs-1" /> Pick Winner
+            <AiOutlineSelect className="fs-1" />{" "}
+            {localStorage.getItem("Lang") === "English"
+              ? en.pickWinner
+              : tr.pickWinner}
           </Button>
           {comments.length > 0 ? (
             <div className="d-flex flex-column justify-content-center align-items-center">
@@ -234,9 +257,10 @@ const Winner = ({ video, pickWin, setVideo, comments }) => {
                   className="fs-2 cursor-pointer"
                 />
               </div>
-              <div className="fs-5 fw-lighter">
-                How many seconds should the selection process take? (Min:1 -
-                Max:17)
+              <div className="fs-5 fw-lighter pt-3">
+                {localStorage.getItem("Lang") === "English"
+                  ? en.howManyTime
+                  : tr.howManyTime}
               </div>
             </div>
           ) : (
@@ -248,14 +272,25 @@ const Winner = ({ video, pickWin, setVideo, comments }) => {
   };
 
   return (
-    <Card className={!video.status ? "d-none" : "d-block mb-5 pb-5 bg-dark text-light rounded-0 w-75 rounded-bottom"}>
+    <Card
+      className={
+        !video.status
+          ? "d-none"
+          : "d-block mb-5 pb-5 bg-dark text-light rounded-0 w-75 rounded-bottom"
+      }
+    >
       <Card.Title>
         <div className="px-5 py-1 text-center">{beforeResult()}</div>
       </Card.Title>
       {!comments.length < 1 ? (
-        <Card.Body className="d-flex flex-column justify-content-center align-items-center">
+        <Card.Body className="d-flex pt-0 flex-column justify-content-center align-items-center">
           {video.pick ? (
-            <div className="winner mt-5 d-flex flex-column justify-content-center align-items-center w-100">
+            <div className="winner mt-1 d-flex flex-column justify-content-center align-items-center w-100">
+              <p className="winner-text mb-5">
+                {localStorage.getItem("Lang") === "English"
+                  ? en.winner
+                  : tr.winner}
+              </p>
               <img
                 onError={({ currentTarget }) => {
                   currentTarget.onerror = null; // prevents looping
@@ -263,24 +298,32 @@ const Winner = ({ video, pickWin, setVideo, comments }) => {
                 }}
                 src={video.pick?.authorProfileImageUrl}
                 alt="Profile"
-                style={{ width: "5rem" }}
-                className="position-relative"
+                className="position-relative winner-img"
               />
-              <div className="d-flex justify-content-center align-items-center ">
+              <img
+                src="../assets/tac.png"
+                alt="winner"
+                className="winner-tac"
+              />
+              <div className="d-flex flex-column justify-content-center align-items-center ">
                 <a
                   href={video.pick?.authorChannelUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="d-flex justify-content-center align-items-center "
+                  className="d-flex justify-content-center align-items-center winner-link"
                 >
-                  <h1>{video.pick?.authorDisplayName} </h1>
+                  <h1 className="winner-name">
+                    {video.pick?.authorDisplayName}{" "}
+                  </h1>
 
-                  <AiOutlineLink className="fs-2" />
+                  {/* <AiOutlineLink className="fs-2" /> */}
                 </a>
               </div>
               <div className="w-50 comments text-dark p-2 d-flex flex-column justify-content-center align-items-center mt-2">
                 <span className="fw-bold text-decoration-underline">
-                  Comment
+                  {localStorage.getItem("Lang") === "English"
+                    ? en.comments
+                    : tr.comments}
                 </span>{" "}
                 {video.pick?.textOriginal}
               </div>
@@ -292,7 +335,11 @@ const Winner = ({ video, pickWin, setVideo, comments }) => {
       ) : (
         <Card.Body>
           <div className="d-flex flex-column justify-content-center align-items-center">
-            <h3> Comments Ready to Take</h3>
+            <h3>
+              {localStorage.getItem("Lang") === "English"
+                ? en.readyComments
+                : tr.readyComments}
+            </h3>
             <Button
               variant="success"
               onClick={() => pickWin()}
@@ -300,7 +347,9 @@ const Winner = ({ video, pickWin, setVideo, comments }) => {
               style={!video.reVideoId ? { pointerEvents: "none" } : {}}
               disabled={!video.videoId ? true : false}
             >
-              Fetch Comments
+              {localStorage.getItem("Lang") === "English"
+                ? en.fetchComments
+                : tr.fetchComments}
             </Button>
           </div>
         </Card.Body>
