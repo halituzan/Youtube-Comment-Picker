@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import { en, tr } from "../lang/language";
 
 export const checkLink = (video, setVideo, setComments) => {
   const regex =
@@ -6,7 +7,12 @@ export const checkLink = (video, setVideo, setComments) => {
   const result = video.link.match(regex);
 
   if (result) {
-    toast.success("Correct!", { theme: "colored" });
+    toast.success(
+      localStorage.getItem("Lang") === "English"
+        ? en.correctConnection
+        : tr.correctConnection,
+      { theme: "colored" }
+    );
 
     setVideo({
       ...video,
@@ -20,8 +26,12 @@ export const checkLink = (video, setVideo, setComments) => {
     return true;
   } else {
     toast.error(
-      "There is no such link or you did not enter the url correctly.",
-      { theme: "dark" }
+      localStorage.getItem("Lang") === "English"
+        ? en.noLinkError
+        : tr.noLinkError,
+      {
+        theme: "dark",
+      }
     );
     setVideo({ ...video, status: false, videoId: "" });
 

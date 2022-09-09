@@ -2,16 +2,24 @@ import React from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import {
   AiOutlineSelect,
-  AiOutlineLink,
   AiOutlinePlusCircle,
   AiOutlineMinusCircle,
 } from "react-icons/ai";
+import { toast } from "react-toastify";
 import { en, tr } from "../lang/language";
 const Winner = ({ video, pickWin, setVideo, comments }) => {
   const plus = () => {
     if (video.seconds >= 1 && video.seconds < 17) {
       setVideo({ ...video, seconds: video.seconds + 1 });
     } else {
+      toast.error(
+        localStorage.getItem("Lang") === "English"
+          ? en.secondsMax
+          : tr.secondsMax,
+        {
+          theme: "dark",
+        }
+      );
     }
   };
 
@@ -19,6 +27,14 @@ const Winner = ({ video, pickWin, setVideo, comments }) => {
     if (video.seconds > 1) {
       setVideo({ ...video, seconds: video.seconds - 1 });
     } else {
+      toast.error(
+        localStorage.getItem("Lang") === "English"
+          ? en.secondsMin
+          : tr.secondsMin,
+        {
+          theme: "dark",
+        }
+      );
     }
   };
 
