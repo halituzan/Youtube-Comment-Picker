@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import YoutubeUrl from "./components/YoutubeUrl";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import Winner from "./components/Winner";
+import { Form } from "react-bootstrap";
+import { en, tr } from "./lang/language";
 
 function App() {
+  useEffect(() => {
+    if (localStorage.getItem("Lang")) {
+    } else localStorage.setItem("Lang", "English");
+  }, []);
   const arr = [];
   let nextPageToken;
   const [comments, setComments] = useState([]);
@@ -25,6 +31,7 @@ function App() {
     },
     seconds: 1,
   });
+
   const fetching = async (uri, id, key) => {
     const data = await axios(uri + id + `&key=${key}`).catch((err) => err);
     return data;
@@ -40,13 +47,23 @@ function App() {
         ).catch((err) => console.log(err));
         const { data } = res;
         if (res.status === 200) {
-          toast.success("Comments have been brought in successfully.", {
-            theme: "colored",
-          });
+          toast.success(
+            localStorage.getItem("Lang") === "English"
+              ? en.dataSuccess
+              : tr.dataSuccess,
+            {
+              theme: "colored",
+            }
+          );
         } else {
-          toast.error("An error occurred while shooting the video", {
-            theme: "dark",
-          });
+          toast.error(
+            localStorage.getItem("Lang") === "English"
+              ? en.serverError
+              : tr.serverError,
+            {
+              theme: "dark",
+            }
+          );
         }
         data?.items?.forEach((element) => {
           const { snippet } = element.snippet.topLevelComment;
@@ -102,9 +119,14 @@ function App() {
           });
         }
       } else {
-        toast.error("Hata, Lütfen videoyu seçme butonuna tıklayın", {
-          theme: "dark",
-        });
+        toast.error(
+          localStorage.getItem("Lang") === "English"
+            ? en.clickError
+            : tr.clickError,
+          {
+            theme: "dark",
+          }
+        );
       }
     })();
   };
@@ -147,6 +169,23 @@ function App() {
         pickWin={pickWin}
         comments={comments}
       />
+      <div className="language">
+        <Form.Select
+          aria-label="English"
+          size="sm"
+          className="bg-dark text-light"
+          defaultValue={localStorage.getItem("Lang")}
+          onChange={(e) => {
+            localStorage.setItem("Lang", e.target.value);
+            window.location.reload();
+            return false;
+          }}
+        >
+          <option value="English">English</option>
+          <option value="Turkish">Türkçe</option>
+        </Form.Select>
+      </div>
+
       <ToastContainer
         position="bottom-right"
         autoClose={5000}
