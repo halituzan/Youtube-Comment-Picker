@@ -16,6 +16,9 @@ export const en = {
   selectVideo: "Select Video",
   textAreaPlace: "Leave a words here",
   winner: "WINNER",
+  secondsMax: "The highest value you can enter can be 17",
+  secondsMin: "The lowest value you can enter can be 1",
+  correctConnection: "Correct Connection!",
 };
 export const tr = {
   dataSuccess: "Yorumlar başarıyla getirildi.",
@@ -34,4 +37,8 @@ export const tr = {
   selectVideo: "Videoyu Seç",
   textAreaPlace: "Kelimeyi buraya yazın.",
   winner: "KAZANAN",
+  secondsMax: "Gireceğiniz en yüksek değer 17 olabilir",
+  secondsMin: "Gireceğiniz en düşük değer 1 olabilir",
+  correctConnection: "Doğru Bağlantı!",
+
 };

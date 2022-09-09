@@ -2,11 +2,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import YoutubeUrl from "./components/YoutubeUrl";
-import "react-toastify/dist/ReactToastify.css";
-import "./App.css";
 import Winner from "./components/Winner";
 import { Form } from "react-bootstrap";
 import { en, tr } from "./lang/language";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   useEffect(() => {
@@ -78,14 +77,6 @@ function App() {
               updatedAt: snippet.updatedAt,
             },
           ]);
-
-          //   authorDisplayName: snippet.authorDisplayName,
-          //   authorChannelUrl: snippet.authorChannelUrl,
-          //   authorProfileImageUrl: snippet.authorProfileImageUrl,
-          //   textDisplay: snippet.textDisplay,
-          //   textOriginal: snippet.textOriginal,
-          //   updatedAt: snippet.updatedAt,
-          // });
         });
         nextPageToken = data.nextPageToken;
 
@@ -133,7 +124,6 @@ function App() {
   return (
     <div className="App container mt-5 d-flex flex-column justify-content-center align-items-center w-100 mb-5">
       <div className="logo d-flex justify-content-center align-items-center w-100 row mb-5">
-        
         <div className="d-flex justify-content-center col-12 col-lg-6">
           <h2 className="me-4">
             <span>Y</span>
@@ -188,7 +178,7 @@ function App() {
 
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
