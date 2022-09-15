@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -11,7 +10,9 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: blanchedalmond !important;
+  background: url("../../public/assets/header-background.png") repeat, #161620;
+  overflow-x: hidden;
+  background-size: 25%;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -38,13 +39,13 @@ code {
   width: 50%;
 }
 .logo img {
-  width: 125px;
+  width: 75px;
 }
 .logo h2 {
   text-align: center;
   font-weight: bold;
   font-family: "Yanone Kaffeesatz", sans-serif;
-  color: blanchedalmond !important;
+  color: #161620 !important;
   font-size: 0;
   line-height: 1.5;
   display: flex;
@@ -110,12 +111,28 @@ code {
           animation-delay: 6.5s;
 }
 
+.nav-menu {
+  background: #161620 !important;
+  border-bottom: 1px solid wheat;
+  top: 0;
+  z-index: 999;
+}
+.nav-menu .logo {
+  color: white;
+}
+.nav-menu .socials {
+  color: white;
+}
+.nav-menu .socials:hover {
+  color: #FF8008;
+}
+
 @-webkit-keyframes move {
   0% {
     transform: translate(-5%, 0);
   }
   50% {
-    text-shadow: 0 25px 50px #d42427;
+    text-shadow: 0 25px 50px white;
   }
   100% {
     transform: translate(5%, 0);
@@ -127,7 +144,7 @@ code {
     transform: translate(-5%, 0);
   }
   50% {
-    text-shadow: 0 25px 50px #d42427;
+    text-shadow: 0 25px 50px white;
   }
   100% {
     transform: translate(5%, 0);
@@ -142,8 +159,8 @@ code {
 }
 
 .footer {
-  position: fixed;
-  bottom: 0;
+  background: #161620 !important;
+  border-top: 1px solid wheat;
 }
 .footer .patreon {
   margin-left: 10px;
@@ -179,8 +196,10 @@ code {
 }
 
 .comments {
-  background-color: blanchedalmond !important;
+  background-color: #161620 !important;
   filter: drop-shadow(0px 0px 3px rgb(179, 173, 158));
+  color: white !important;
+  width: 300px;
 }
 
 .url-input,
@@ -192,7 +211,7 @@ code {
   transition: transform 0.4s ease-out;
 }
 .url-button :hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 .form-check-input:checked {
@@ -200,11 +219,9 @@ code {
   border-color: #fd7e14 !important;
 }
 
-.language {
-  top: 10px;
-  right: 10px;
-  color: blanchedalmond !important;
-  position: fixed;
+.navbar-toggler-icon {
+  color: white !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 30 30%27%3e%3cpath stroke=%27rgba%28255, 255, 255%29%27 stroke-linecap=%27round%27 stroke-miterlimit=%2710%27 stroke-width=%272%27 d=%27M4 7h22M4 15h22M4 23h22%27/%3e%3c/svg%3e");
 }
 
 .winner {
@@ -238,10 +255,206 @@ code {
 .winner .winner-name {
   font-size: 4rem;
   text-align: center;
+  overflow-wrap: anywhere;
 }
 .winner .winner-tac {
   width: 150px;
   position: absolute;
   top: 90px;
   margin-right: 10px;
+}
+
+.home a {
+  color: white;
+  text-decoration: none;
+}
+.home .header {
+  height: auto;
+}
+.home .home-left .home-title {
+  font-family: "Yanone Kaffeesatz", sans-serif;
+  font-size: 4rem;
+}
+.home .home-left p {
+  font-family: "Yanone Kaffeesatz", sans-serif;
+  font-size: 2rem;
+}
+.home .home-img img {
+  filter: drop-shadow(2px 2px 2px #fff);
+}
+.home #main {
+  position: relative;
+  left: 0;
+  margin-top: 50px;
+  background: wheat;
+  box-shadow: 0 0px 21px 2px rgba(255, 255, 255, 0.2901960784);
+}
+.home .main {
+  background: wheat;
+  height: auto;
+}
+.home .main h2 {
+  font-family: "Yanone Kaffeesatz", sans-serif;
+  font-size: 3rem;
+}
+.home .main div {
+  z-index: 2;
+}
+.home .main .main-facebook {
+  cursor: pointer;
+}
+.home .main .main-facebook img {
+  filter: drop-shadow(0px 10px 4px #161620);
+}
+.home .main .main-facebook :hover {
+  transform: scale(1.1);
+  filter: drop-shadow(10px 20px 4px #161620);
+}
+.home .main .main-youtube {
+  cursor: pointer;
+}
+.home .main .main-youtube img {
+  filter: drop-shadow(0px 10px 4px #161620);
+}
+.home .main .main-youtube :hover {
+  transform: scale(1.1);
+  filter: drop-shadow(10px 20px 4px #161620);
+}
+.home .main .main-instagram {
+  cursor: pointer;
+}
+.home .main .main-instagram img {
+  filter: drop-shadow(0px 10px 4px #161620);
+}
+.home .main .main-instagram :hover {
+  transform: scale(1.1);
+  filter: drop-shadow(10px 20px 4px #161620);
+}
+.home .main .main-twitter {
+  cursor: pointer;
+}
+.home .main .main-twitter img {
+  filter: drop-shadow(0px 10px 4px #161620);
+}
+.home .main .main-twitter :hover {
+  transform: scale(1.1);
+  filter: drop-shadow(10px 20px 4px #161620);
+}
+.home .main .main-pinterest {
+  cursor: pointer;
+}
+.home .main .main-pinterest img {
+  filter: drop-shadow(0px 10px 4px #161620);
+}
+.home .main .main-pinterest :hover {
+  transform: scale(1.1);
+  filter: drop-shadow(10px 20px 4px #161620);
+}
+.home .centerh1 {
+  text-align: center;
+  z-index: 1;
+  background-image: linear-gradient(to right, #FF8008 0%, #FFC837 51%, #FF8008 100%);
+}
+.home .centerh1 p {
+  margin-top: -20px;
+  color: #161620 !important;
+  word-wrap: break-word;
+  font-size: 7vw;
+  font-family: "Yanone Kaffeesatz", sans-serif;
+  margin: 0;
+  text-shadow: 0px 0px 17px white;
+}
+
+.btn-grad {
+  background-image: linear-gradient(to right, #FF8008 0%, #FFC837 51%, #FF8008 100%);
+  margin: 10px;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 10px;
+  display: block;
+}
+
+.btn-grad:hover {
+  background-position: right center;
+  /* change the direction of the change here */
+  color: #161620 !important;
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 960px) {
+  .home .wave {
+    margin-top: 10vh;
+  }
+  .home #main {
+    margin-top: 30px;
+  }
+}
+@media only screen and (max-width: 588px) {
+  .home-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50% !important;
+    margin: auto;
+  }
+  .home #main {
+    margin: auto;
+    margin-top: 30px;
+  }
+  .home .header {
+    display: block !important;
+    margin: auto;
+  }
+  .home .centerh1 {
+    display: none !important;
+  }
+  .home .home-left {
+    display: block !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-direction: row !important;
+    width: 80% !important;
+    margin: auto;
+    text-align: center;
+  }
+}
+.winners {
+  top: 0;
+  left: 0;
+  background-color: wheat;
+}
+.winners .winner1 img {
+  -webkit-animation: zoominoutsinglefeatured 1s infinite;
+          animation: zoominoutsinglefeatured 1s infinite;
+  filter: drop-shadow(1px 1px 4px black);
+}
+
+@-webkit-keyframes zoominoutsinglefeatured {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.2, 1.2);
+    filter: drop-shadow(0px 0px 14px black);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+@keyframes zoominoutsinglefeatured {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.2, 1.2);
+    filter: drop-shadow(0px 0px 14px black);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
 }/*# sourceMappingURL=App.css.map */

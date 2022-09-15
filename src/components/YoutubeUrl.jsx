@@ -11,7 +11,37 @@ import { checkLink } from "../helpers/checklink";
 import { en, tr } from "../lang/language";
 const YoutubeUrl = ({ video, setVideo, setComments }) => {
   return (
-    <div className="d-flex flex-column justify-content-center align-items-center w-75">
+    <div className="d-flex flex-column justify-content-center align-items-center ">
+      <div className="logo d-flex justify-content-center align-items-center w-100 row mb-5 ">
+        <div className="d-flex justify-content-center col-12 col-lg-6 row">
+          <h2 className="col-12 m-0">
+            <span>Y</span>
+            <span>O</span>
+            <span>U</span>
+            <span>T</span>
+            <span>U</span>
+            <span>B</span>
+            <span>E</span>
+          </h2>
+          <h2 className="col-12 m-0">
+            <span>C</span>
+            <span>O</span>
+            <span>M</span>
+            <span>M</span>
+            <span>E</span>
+            <span>N</span>
+            <span>T</span>
+          </h2>
+          <h2 className="col-12 m-0">
+            <span>P</span>
+            <span>I</span>
+            <span>C</span>
+            <span>K</span>
+            <span>E</span>
+            <span>R</span>
+          </h2>
+        </div>
+      </div>
       <InputGroup className="mb-3">
         <Form.Control
           placeholder={

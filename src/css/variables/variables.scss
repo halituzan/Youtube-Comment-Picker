@@ -1,8 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-
+// @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 // Background Colors
-$bodyColor: blanchedalmond !important;
+$bodyColor: #161620 !important;
 $winnerColor:#fbe217;
 $switchButtonColor: #fd7e14;
 
@@ -10,7 +9,7 @@ $switchButtonColor: #fd7e14;
 $shadowColor: drop-shadow(0px 0px 3px rgb(179, 173, 158));
 
 //Text Shadow Colors
-$logoShadow:#d42427;
+$logoShadow:white;
 
 // Fonts
 $generalFont : "Roboto",
