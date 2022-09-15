@@ -111,7 +111,6 @@ function App() {
             setVideo({ ...video, videoId: "" });
             break;
           }
-         
         }
       } else {
         toast.error(
