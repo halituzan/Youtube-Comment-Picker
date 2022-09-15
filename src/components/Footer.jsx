@@ -8,7 +8,7 @@ import { FaPatreon } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <div className="footer d-flex justify-content-center align-items-center w-100 p-2 bg-secondary text-light">
+    <div className="footer d-flex justify-content-center align-items-center w-100 mt-5 py-2 text-light">
       <p className="fs-5 mb-0">
         Halit Uzan &#169; 2022
         <a href="https://github.com/halituzan" target="_blank" rel="noreferrer">

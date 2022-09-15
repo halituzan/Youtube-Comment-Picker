@@ -1,28 +1,31 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
-import YoutubeUrl from "./components/YoutubeUrl";
-import Winner from "./components/Winner";
-import { Form } from "react-bootstrap";
 import { en, tr } from "./lang/language";
 import "react-toastify/dist/ReactToastify.css";
+import Header from "./components/Header";
+import Youtube from "./pages/Youtube";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Footer from "./components/Footer";
 
 function App() {
   useEffect(() => {
     if (localStorage.getItem("Lang")) {
     } else localStorage.setItem("Lang", "English");
   }, []);
-  const arr = [];
   let nextPageToken;
   const [comments, setComments] = useState([]);
+  const [winners, setWinners] = useState([]);
   const [video, setVideo] = useState({
-    url: "https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=100&video_id=",
+    YTUrl:
+      "https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=100",
     link: "",
     status: false,
     resultPage: 0,
     videoId: "",
     reVideoId: "",
-    pick: "",
+    pick: [],
     sameFilter: false,
     wordFilter: {
       status: false,
@@ -32,7 +35,9 @@ function App() {
   });
 
   const fetching = async (uri, id, key) => {
-    const data = await axios(uri + id + `&key=${key}`).catch((err) => err);
+    const data = await axios(uri + `&video_id=${id}&key=${key}`).catch(
+      (err) => err
+    );
     return data;
   };
 
@@ -40,7 +45,7 @@ function App() {
     (async () => {
       if (video.status) {
         const res = await fetching(
-          video.url,
+          video.YTUrl,
           video.videoId,
           process.env.REACT_APP_SECRET_KEY
         ).catch((err) => console.log(err));
@@ -79,10 +84,11 @@ function App() {
           ]);
         });
         nextPageToken = data.nextPageToken;
+        setVideo({ ...video, videoId: "" });
 
         while (nextPageToken) {
           const { data } = await axios(
-            `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=100&pageToken=${nextPageToken}&video_id=${video.videoId}&key=${process.env.REACT_APP_SECRET_KEY}`
+            `${video.YTUrl}&pageToken=${nextPageToken}&video_id=${video.videoId}&key=${process.env.REACT_APP_SECRET_KEY}`
           );
           data.items?.forEach((element) => {
             const { snippet } = element.snippet.topLevelComment;
@@ -99,15 +105,13 @@ function App() {
             ]);
           });
           nextPageToken = data.nextPageToken;
+          setVideo({ ...video, videoId: "" });
 
           if (!nextPageToken) {
             setVideo({ ...video, videoId: "" });
             break;
           }
-          setVideo({
-            ...video,
-            comments: arr,
-          });
+         
         }
       } else {
         toast.error(
@@ -122,59 +126,27 @@ function App() {
     })();
   };
   return (
-    <div className="App container mt-5 d-flex flex-column justify-content-center align-items-center w-100 mb-5">
-      <div className="logo d-flex justify-content-center align-items-center w-100 row mb-5">
-        <div className="d-flex justify-content-center col-12 col-lg-6">
-          <h2 className="me-4">
-            <span>Y</span>
-            <span>O</span>
-            <span>U</span>
-            <span>T</span>
-            <span>U</span>
-            <span>B</span>
-            <span>E</span>
-          </h2>
-          <h2>
-            <span>C</span>
-            <span>O</span>
-            <span>M</span>
-            <span>M</span>
-            <span>E</span>
-            <span>N</span>
-            <span>T</span>
-            <span>P</span>
-            <span>I</span>
-            <span>C</span>
-            <span>K</span>
-            <span>E</span>
-            <span>R</span>
-          </h2>
-        </div>
-      </div>
-      <YoutubeUrl video={video} setVideo={setVideo} setComments={setComments} />
-
-      <Winner
-        video={video}
-        setVideo={setVideo}
-        pickWin={pickWin}
-        comments={comments}
-      />
-      <div className="language">
-        <Form.Select
-          aria-label="English"
-          size="sm"
-          className="bg-dark text-light"
-          defaultValue={localStorage.getItem("Lang")}
-          onChange={(e) => {
-            localStorage.setItem("Lang", e.target.value);
-            window.location.reload();
-            return false;
-          }}
-        >
-          <option value="English">English</option>
-          <option value="Turkish">Türkçe</option>
-        </Form.Select>
-      </div>
+    <div className="App d-flex flex-column justify-content-center align-items-center w-100">
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route
+          path="/youtube"
+          element={
+            <Youtube
+              video={video}
+              setVideo={setVideo}
+              setComments={setComments}
+              pickWin={pickWin}
+              comments={comments}
+              setWinners={setWinners}
+              winners={winners}
+            />
+          }
+        ></Route>
+      </Routes>
+      <Footer />
+      {/* <LanguageSelect /> */}
 
       <ToastContainer
         position="bottom-right"

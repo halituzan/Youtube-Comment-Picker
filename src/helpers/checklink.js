@@ -19,7 +19,7 @@ export const checkLink = (video, setVideo, setComments) => {
       status: true,
       videoId: result[1],
       reVideoId: result[1],
-      pick: null,
+      pick: [],
     });
     setComments([]);
 
