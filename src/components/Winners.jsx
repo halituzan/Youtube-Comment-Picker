@@ -29,10 +29,10 @@ export default function Winners({ winners }) {
           }}
         />
       </div>
-      <div className="d-flex justify-content-center flex-wrap mt-3">
+      <div className="d-flex justify-content-center flex-wrap mt-3 winner-backup">
         {winners.map((i, index) => (
           <div
-          key={index}
+            key={index}
             className={
               index === 0
                 ? "d-none"
@@ -57,7 +57,9 @@ export default function Winners({ winners }) {
               style={{ borderRadius: "50%", width: "48px" }}
             />
             <p className={index === 0 ? "d-none" : "d-block"}>
-              {i?.authorDisplayName}
+              <a href={i?.authorChannelUrl} target="_blank" className="winner-link" rel="noreferrer">
+                {i?.authorDisplayName}
+              </a>
             </p>
           </div>
         ))}

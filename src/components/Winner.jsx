@@ -83,7 +83,6 @@ const Winner = ({
     let count = 0;
     const randomNumber = () => Math.floor(Math.random() * arr.length);
 
-    console.log(arr);
     const repeat = setInterval(function () {
       const random = randomNumber();
       if (count < video.seconds * 10) {
