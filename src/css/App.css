@@ -237,6 +237,11 @@ code {
   color: #fbe217;
   padding: 0;
   margin: 0;
+  text-decoration: none;
+}
+.winner .winner-link :hover {
+  color: white;
+  text-decoration: none;
 }
 .winner .winner-text {
   font-family: "Yanone Kaffeesatz", sans-serif;
@@ -244,13 +249,6 @@ code {
   padding: 0;
   margin: 0;
   font-size: 4rem;
-}
-.winner .winner-link {
-  text-decoration: none;
-}
-.winner .winner-link :hover {
-  color: white;
-  text-decoration: none;
 }
 .winner .winner-name {
   font-size: 4rem;
@@ -262,6 +260,20 @@ code {
   position: absolute;
   top: 90px;
   margin-right: 10px;
+}
+
+.winner-backup a {
+  font-family: "Yanone Kaffeesatz", sans-serif;
+  color: #161620;
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  font-size: 1.5rem;
+  text-align: center;
+}
+.winner-backup :hover {
+  text-decoration: none;
+  text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.75);
 }
 
 .home a {
